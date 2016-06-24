@@ -133,29 +133,88 @@ def demo_dict():
 
 def demo_set():  # set不可以做加法
     seta = set((1, 2, 3))
-    #两种定义方法
-    a = [1,2,3]
+    # 两种定义方法
+    a = [1, 2, 3]
     seta = set(a)
     setb = set((2, 3, 4))
     print 1, seta
     # seta.add(4)
     # print 2, seta
     print 3, seta.intersection(setb), seta & setb  # 并
-    print 4, seta | setb, seta.union(setb) #交
-    print 5,seta - setb
+    print 4, seta | setb, seta.union(setb)  # 交
+    print 5, seta - setb
     seta.add('x')
-    print 6,seta
-    print 7,len(seta)
-    print 8,seta.add(4)
+    print 6, seta
+    print 7, len(seta)
+    print 8, seta.add(4)
+
+
+class User:
+    type = 'USER'
+
+    def __init__(self, name, uid):  # 成员函数初始化函数，用self开头
+        self.name = name
+        self.uid = uid
+
+    def __repr__(self):
+        return 'im ' + self.name + ' ' + str(self.uid)
+
+
+class Guest(User):
+    type = 'GUEST'
+
+    def __repr__(self):
+        return 'im guest ' + self.name + ' ' + str(self.uid)
+
+
+class Admin(User):  # 管理员，从user继承
+    type = 'ADMIN'
+
+    def __init__(self, name, uid, group):  # 属于某个组
+        User.__init__(self, name, uid)  # 调用基类
+        self.group = group
+
+    def __repr__(self):
+        return 'im guset' + self.name + ' ' + str(self.uid) + ' ' + self.group
+
+
+def create_user(type):  # 创建组
+    if type == 'USER':
+        return User('u1', 1)
+    elif type == 'ADMIN':
+        return Admin('a1', 1, 'g1')
+    else:
+        return Guest('gu1', 201)
+        # raise ValueError('error')
+
+
+# 异常处理
+def demo_exception():
+    try:
+        print 2 / 1
+        print 2 / 0
+        raise Exception('Raise Error', 'NowCoder')
+    except Exception as e:
+        print 'error:', e
+    finally:#不管代码前面是否有问题，都打印
+        print 'clean up'
 
 
 if __name__ == '__main__':
-    # qiushibaike()
-    # demo_string()
-    # demo_operation()
-    # demo_buildinfunction()  # 内置函数
-    # demo_controlflow()  # 控制流
-    # 四组结构：list,dictory,tumple,
-    # demo_list()
-    # demo_dict()
-    demo_set()  # 集合
+    # user1 = User('u1', 1)
+    # print user1
+    # admin1 = Admin('a1', 101, 'g1')
+    # print admin1
+    #
+    # print create_user('Guest')  # 多态
+# qiushibaike()
+# demo_string()
+# demo_operation()
+# demo_buildinfunction()  # 内置函数
+# demo_controlflow()  # 控制流
+# 四组结构：list,dictory,tumple,
+# demo_list()
+# demo_dict()
+# demo_set()  # 集合
+# 面向对象，重载=多态
+    demo_exception()
