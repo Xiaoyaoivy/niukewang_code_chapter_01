@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import requests
 from bs4 import BeautifulSoup
+import random
+import re
 
 
 def qiushibaike():  # 调用糗事百科主页输出内容
@@ -196,9 +198,46 @@ def demo_exception():
         raise Exception('Raise Error', 'NowCoder')
     except Exception as e:
         print 'error:', e
-    finally:#不管代码前面是否有问题，都打印
+    finally:  # 不管代码前面是否有问题，都打印
         print 'clean up'
 
+
+def demo_random():
+    # random.seed(1)#若设置种子数，则随机数不变
+    # 没有设置，则将系统当前时间作为种子，所以产生数字不同
+    print 1, random.random()  # 返回0到1的浮点数
+    print 2, int(random.random() * 100)
+    print 3, random.randint(0, 200)
+    print 4, random.choice(range(0, 100))  # 随机选一个
+    print 5, random.sample(range(0, 100), 4)  # 随机抽4个
+    print 6, random.shuffle([1, 2, 3, 4, 5])
+    a = [1, 2, 3, 4, 5]
+    random.shuffle(a)
+    print 7, a  # 随机打乱
+
+
+def demo_re():
+    str = 'abc123def12gh15'
+    p1 = re.compile('[\d]+')
+    p2 = re.compile('\d')
+    print 1, p1.findall(str)
+    print 2, p2.findall(str)
+
+    str = 'a@163.com;b@gmail.com;c@qq.com;e0@163.com;z@qq.com'
+    p3 = re.compile('[\w]+@[163|qq]+\.com')
+    print 3, p3.findall(str)
+
+    str = '<html><h>title</h><body>xxx</body></html>'
+    p4 = re.compile('<h>[^<]+</h>')#默认在最外面在括号，指定要找的内容
+    print 4, p4.findall(str)
+    p5 = re.compile('<h>([^<]+)</h><body>([^<]+)</body>')  # 匹配
+    print 5, p5.findall(str)
+
+    str = 'xx2016-11-11yy'
+    p6 = re.compile('\d\d\d\d-\d\d-\d\d')
+    print 6,p6.findall(str)
+    p7 = re.compile('\d{4}-\d{2}-\d{2}')
+    print 7, p7.findall(str)
 
 if __name__ == '__main__':
     # user1 = User('u1', 1)
@@ -207,14 +246,16 @@ if __name__ == '__main__':
     # print admin1
     #
     # print create_user('Guest')  # 多态
-# qiushibaike()
-# demo_string()
-# demo_operation()
-# demo_buildinfunction()  # 内置函数
-# demo_controlflow()  # 控制流
-# 四组结构：list,dictory,tumple,
-# demo_list()
-# demo_dict()
-# demo_set()  # 集合
-# 面向对象，重载=多态
-    demo_exception()
+    # qiushibaike()
+    # demo_string()
+    # demo_operation()
+    # demo_buildinfunction()  # 内置函数
+    # demo_controlflow()  # 控制流
+    # 四组结构：list,dictory,tumple,
+    # demo_list()
+    # demo_dict()
+    # demo_set()  # 集合
+    # 面向对象，重载=多态
+    # demo_exception()
+    # demo_random()
+    demo_re()
